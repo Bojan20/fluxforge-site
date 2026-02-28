@@ -37,9 +37,17 @@
   color: var(--text-primary);
 }
 
-.logoIcon {
-  font-size: 1.4rem;
-  color: var(--accent-blue);
+.logoImg {
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+  filter: drop-shadow(0 0 6px rgba(251, 146, 60, 0.4));
+  transition: filter var(--transition-fast), transform var(--transition-fast);
+}
+
+.logo:hover .logoImg {
+  filter: drop-shadow(0 0 12px rgba(251, 146, 60, 0.6));
+  transform: scale(1.08);
 }
 
 .logoBadge {

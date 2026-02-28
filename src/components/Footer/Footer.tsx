@@ -6,7 +6,7 @@ export default function Footer() {
       <div className={`container ${styles.inner}`}>
         <div className={styles.brand}>
           <span className={styles.logo}>
-            <span className={styles.logoIcon}>&#9881;</span>
+            <img src="/logo.png" alt="FluxForge" className={styles.logoImg} />
             FluxForge Studio
           </span>
           <p className={styles.tagline}>

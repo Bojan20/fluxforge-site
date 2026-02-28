@@ -23,7 +23,7 @@ export default function Nav() {
     <nav className={`${styles.nav} ${scrolled ? styles.scrolled : ""}`}>
       <div className={styles.inner}>
         <a href="#" className={styles.logo}>
-          <span className={styles.logoIcon}>&#9881;</span>
+          <img src="/logo.png" alt="FluxForge" className={styles.logoImg} />
           <span className={styles.logoText}>FluxForge</span>
           <span className={styles.logoBadge}>Studio</span>
         </a>

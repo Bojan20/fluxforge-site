@@ -26,9 +26,11 @@
   margin-bottom: 0.75rem;
 }
 
-.logoIcon {
-  font-size: 1.3rem;
-  color: var(--accent-blue);
+.logoImg {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+  filter: drop-shadow(0 0 6px rgba(251, 146, 60, 0.3));
 }
 
 .tagline {

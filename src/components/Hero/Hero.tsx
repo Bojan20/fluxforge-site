@@ -7,6 +7,11 @@ export default function Hero() {
       <div className={styles.gridOverlay} />
 
       <div className={styles.content}>
+        <div className={styles.logoContainer}>
+          <div className={styles.logoGlow} />
+          <img src="/logo.png" alt="FluxForge Studio" className={styles.heroLogo} />
+        </div>
+
         <div className={styles.badge}>
           <span className={styles.badgeDot} />
           Rust + Flutter + SIMD
