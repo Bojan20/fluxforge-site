@@ -1,88 +1,76 @@
+import { motion } from "framer-motion";
+import { useScrollReveal, fadeUp, stagger } from "../../hooks/useScrollReveal";
 import styles from "./DSP.module.css";
 
 const panels = [
-  {
-    name: "FF-Q 64",
-    full: "64-Band Parametric EQ",
-    inspiration: "Pro-Q 3",
-    features: "8-band parametric, I/O metering, spectrum analyzer, 7 filter shapes",
-    color: "var(--accent-blue)",
-  },
-  {
-    name: "FF-C",
-    full: "Compressor",
-    inspiration: "Pro-C 2",
-    features: "Transfer curve, knee display, 14 styles, sidechain EQ, lookahead",
-    color: "var(--accent-orange)",
-  },
-  {
-    name: "FF-L",
-    full: "Limiter",
-    inspiration: "Pro-L 2",
-    features: "LUFS metering, 8 styles, true peak, GR history, 8x oversampling",
-    color: "var(--accent-red)",
-  },
-  {
-    name: "FF-G",
-    full: "Gate",
-    inspiration: "Pro-G",
-    features: "State indicator, threshold viz, hysteresis, sidechain filter, range",
-    color: "var(--accent-green)",
-  },
-  {
-    name: "FF-R",
-    full: "Reverb",
-    inspiration: "Pro-R",
-    features: "Decay display, pre-delay, 8 space types, EQ, damping, size control",
-    color: "var(--accent-purple)",
-  },
-  {
-    name: "FF-SAT",
-    full: "Saturation",
-    inspiration: "Saturn 2",
-    features: "6-band multiband, per-band drive/type/dynamics, crossover editor",
-    color: "var(--accent-pink)",
-  },
-  {
-    name: "FF-DLY",
-    full: "Delay",
-    inspiration: "Timeless 3",
-    features: "Ping-pong, tempo sync, modulation, filter, ducking, freeze mode",
-    color: "var(--accent-cyan)",
-  },
-  {
-    name: "FF-E",
-    full: "De-Esser",
-    inspiration: "Pro-DS",
-    features: "Frequency display, listen mode, wide/split band, 8 parameters",
-    color: "var(--accent-blue)",
-  },
+  { name: "FF-Q 64", full: "64-Band Parametric EQ", ref: "Pro-Q 3", features: "8-band parametric, I/O metering, spectrum analyzer, 7 filter shapes", color: "blue" },
+  { name: "FF-C", full: "Compressor", ref: "Pro-C 2", features: "Transfer curve, knee display, 14 styles, sidechain EQ, lookahead", color: "orange" },
+  { name: "FF-L", full: "Limiter", ref: "Pro-L 2", features: "LUFS metering, 8 styles, true peak, GR history, 8x oversampling", color: "red" },
+  { name: "FF-G", full: "Gate", ref: "Pro-G", features: "State indicator, threshold viz, hysteresis, sidechain filter, range", color: "green" },
+  { name: "FF-R", full: "Reverb", ref: "Pro-R", features: "Decay display, pre-delay, 8 space types, EQ, damping, size control", color: "purple" },
+  { name: "FF-SAT", full: "Saturation", ref: "Saturn 2", features: "6-band multiband, per-band drive/type/dynamics, crossover editor", color: "pink" },
+  { name: "FF-DLY", full: "Delay", ref: "Timeless 3", features: "Ping-pong, tempo sync, modulation, filter, ducking, freeze mode", color: "cyan" },
+  { name: "FF-E", full: "De-Esser", ref: "Pro-DS", features: "Frequency display, listen mode, wide/split band, 8 parameters", color: "indigo" },
 ];
 
 export default function DSP() {
+  const { ref, isInView } = useScrollReveal();
+
   return (
     <section id="dsp" className={`section ${styles.dsp}`}>
-      <div className="container">
-        <span className="section-label">DSP Panels</span>
-        <h2 className="section-title">
+      <div className="container" ref={ref}>
+        <motion.span
+          className="section-label"
+          variants={fadeUp}
+          initial="hidden"
+          animate={isInView ? "visible" : "hidden"}
+          transition={{ duration: 0.5 }}
+        >
+          DSP Panels
+        </motion.span>
+
+        <motion.h2
+          className="section-title"
+          variants={fadeUp}
+          initial="hidden"
+          animate={isInView ? "visible" : "hidden"}
+          transition={{ duration: 0.5, delay: 0.1 }}
+        >
           FabFilter-Class{" "}
-          <span style={{ color: "var(--accent-orange)" }}>Processing</span>
-        </h2>
-        <p className="section-subtitle" style={{ marginBottom: "3rem" }}>
+          <span className="gradient-text">Processing</span>
+        </motion.h2>
+
+        <motion.p
+          className="section-subtitle"
+          style={{ marginBottom: "3.5rem" }}
+          variants={fadeUp}
+          initial="hidden"
+          animate={isInView ? "visible" : "hidden"}
+          transition={{ duration: 0.5, delay: 0.2 }}
+        >
           9 premium DSP panels with A/B snapshot comparison, undo/redo, preset
           browser, and professional-grade UI — all powered by Rust SIMD.
-        </p>
+        </motion.p>
 
         <div className={styles.grid}>
-          {panels.map((p) => (
-            <div
+          {panels.map((p, i) => (
+            <motion.div
               key={p.name}
               className={styles.panel}
-              style={{ "--panel-color": p.color } as React.CSSProperties}
+              data-color={p.color}
+              variants={fadeUp}
+              initial="hidden"
+              animate={isInView ? "visible" : "hidden"}
+              transition={{ duration: 0.4, ...stagger(i, 0.05) }}
+              onMouseMove={(e) => {
+                const rect = e.currentTarget.getBoundingClientRect();
+                e.currentTarget.style.setProperty("--mouse-x", `${e.clientX - rect.left}px`);
+                e.currentTarget.style.setProperty("--mouse-y", `${e.clientY - rect.top}px`);
+              }}
             >
               <div className={styles.panelHeader}>
-                <span className={styles.panelName}>{p.name}</span>
-                <span className={styles.panelInspiration}>{p.inspiration}</span>
+                <span className={styles.panelName} data-color={p.color}>{p.name}</span>
+                <span className={styles.panelRef}>{p.ref}</span>
               </div>
               <h3 className={styles.panelFull}>{p.full}</h3>
               <p className={styles.panelFeatures}>{p.features}</p>
@@ -90,33 +78,39 @@ export default function DSP() {
                 <span className={styles.knob} />
                 <span className={styles.knob} />
                 <span className={styles.knob} />
-                <span className={styles.knobSmall} />
-                <span className={styles.knobSmall} />
+                <span className={styles.knobSm} />
+                <span className={styles.knobSm} />
               </div>
-            </div>
+              <div className={styles.panelGlow} />
+            </motion.div>
           ))}
         </div>
 
-        {/* DSP Rules */}
-        <div className={styles.rules}>
-          <h3 className={styles.rulesTitle}>Audio Thread Rules</h3>
+        <motion.div
+          className={styles.rules}
+          variants={fadeUp}
+          initial="hidden"
+          animate={isInView ? "visible" : "hidden"}
+          transition={{ duration: 0.5, delay: 0.5 }}
+        >
+          <h3 className={styles.rulesTitle}>Audio Thread Contract</h3>
           <div className={styles.rulesGrid}>
             <div className={styles.ruleBlock}>
-              <span className={styles.ruleIcon}>&#10060;</span>
+              <div className={styles.ruleIndicator} data-type="forbidden" />
               <div>
                 <strong>Forbidden</strong>
                 <p>Heap allocations, Mutex/RwLock, System calls, Panic</p>
               </div>
             </div>
             <div className={styles.ruleBlock}>
-              <span className={styles.ruleIcon}>&#9989;</span>
+              <div className={styles.ruleIndicator} data-type="allowed" />
               <div>
                 <strong>Allowed</strong>
                 <p>Stack allocations, Pre-allocated buffers, Atomics, SIMD</p>
               </div>
             </div>
           </div>
-        </div>
+        </motion.div>
       </div>
     </section>
   );

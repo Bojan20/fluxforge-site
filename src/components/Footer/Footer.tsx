@@ -5,12 +5,13 @@ export default function Footer() {
     <footer className={styles.footer}>
       <div className={`container ${styles.inner}`}>
         <div className={styles.brand}>
-          <span className={styles.logo}>
+          <div className={styles.logo}>
             <img src="/logo.png" alt="FluxForge" className={styles.logoImg} />
-            FluxForge Studio
-          </span>
+            <span className={styles.logoText}>FluxForge Studio</span>
+          </div>
           <p className={styles.tagline}>
             Professional audio production with Rust DSP and Flutter UI.
+            Zero compromises, zero allocations on the audio thread.
           </p>
         </div>
 
@@ -29,20 +30,24 @@ export default function Footer() {
             <a href="#architecture">Engine</a>
           </div>
           <div className={styles.col}>
-            <h4 className={styles.colTitle}>Tech</h4>
-            <span className={styles.techTag}>Rust</span>
-            <span className={styles.techTag}>Flutter</span>
-            <span className={styles.techTag}>SIMD</span>
-            <span className={styles.techTag}>WASM</span>
+            <h4 className={styles.colTitle}>Built With</h4>
+            <div className={styles.techTags}>
+              <span className={styles.techTag}>Rust</span>
+              <span className={styles.techTag}>Flutter</span>
+              <span className={styles.techTag}>SIMD</span>
+              <span className={styles.techTag}>WASM</span>
+            </div>
           </div>
         </div>
       </div>
 
       <div className={styles.bottom}>
-        <div className="container">
+        <div className={`container ${styles.bottomInner}`}>
           <p className={styles.copyright}>
-            &copy; {new Date().getFullYear()} FluxForge Studio. Built with zero
-            compromises.
+            &copy; {new Date().getFullYear()} FluxForge Studio
+          </p>
+          <p className={styles.built}>
+            Built with zero compromises
           </p>
         </div>
       </div>

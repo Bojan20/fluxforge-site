@@ -5,6 +5,7 @@ import Architecture from "./components/Architecture/Architecture";
 import TechStack from "./components/TechStack/TechStack";
 import SlotLab from "./components/SlotLab/SlotLab";
 import DSP from "./components/DSP/DSP";
+import CTA from "./components/CTA/CTA";
 import Footer from "./components/Footer/Footer";
 
 export default function App() {
@@ -18,6 +19,7 @@ export default function App() {
         <TechStack />
         <SlotLab />
         <DSP />
+        <CTA />
       </main>
       <Footer />
     </>
